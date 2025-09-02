@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDogContext } from '../contexts/DogContext';
-import { Dog, Adoption } from '../types';
+import { Dog } from '../types';
 
 const AdminPanel: React.FC = () => {
   const { state, dispatch } = useDogContext();

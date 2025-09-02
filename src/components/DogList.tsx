@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDogContext } from '../contexts/DogContext';
 import DogCard from './DogCard';
-import { DogFilters, SortOption } from '../types';
+import { DogFilters, Dog, SortOption } from '../types';
 
 const DogList: React.FC = () => {
   const { state, dispatch, getFilteredAndSortedDogs } = useDogContext();
@@ -10,15 +10,15 @@ const DogList: React.FC = () => {
   const handleFilterChange = (filter: keyof DogFilters, value: string) => {
     const newFilters = { ...state.filters };
     if (value) {
-      newFilters[filter] = value;
+      (newFilters as any)[filter] = value;
     } else {
       delete newFilters[filter];
     }
     dispatch({ type: 'SET_FILTERS', payload: newFilters });
   };
 
-  const handleSortChange = (field: keyof SortOption['field'], direction: 'asc' | 'desc') => {
-    dispatch({ type: 'SET_SORT', payload: { field, direction } });
+  const handleSortChange = (field: keyof Dog, direction: 'asc' | 'desc') => {
+    dispatch({ type: 'SET_SORT', payload: { field, direction } as SortOption });
   };
 
   const clearFilters = () => {
@@ -132,7 +132,7 @@ const DogList: React.FC = () => {
           <select
             value={`${state.sortOption.field}-${state.sortOption.direction}`}
             onChange={(e) => {
-              const [field, direction] = e.target.value.split('-') as [keyof SortOption['field'], 'asc' | 'desc'];
+              const [field, direction] = e.target.value.split('-') as [keyof Dog, 'asc' | 'desc'];
               handleSortChange(field, direction);
             }}
             className="input-field w-auto"

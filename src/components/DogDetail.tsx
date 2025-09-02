@@ -1,10 +1,9 @@
 import React from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDogContext } from '../contexts/DogContext';
 
 const DogDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const { state } = useDogContext();
 
   const dog = state.dogs.find(d => d.id === id);
